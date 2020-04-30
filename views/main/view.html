@@ -1,0 +1,90 @@
+{% extends 'layout.html' %}
+
+
+{% block category %}
+{% if movie.category.toString() == '' %}
+<ul class="con-container" id="{{ cate.id }}" >
+	<li><div class="title">首页</div></li>
+</ul>
+{% else %}
+{% endif %}
+
+{% for cate in categories %}
+
+{% if movie.category.toString() == cate.id %}
+<ul class="con-container" id="{{ cate.id }}" >
+	<li><div class="title">{{ cate.name }}</div></li>
+</ul>
+{% else %}
+{% endif %}
+
+{% endfor %}
+{% endblock %}
+{% block movie %}
+<ul class="con-container" id="{{ movie.id }}" >
+
+	<li><div class="title">{{ movie.title }}</div></li>
+	<div class="detail thumbnail">
+		<div class="media thumbnail">
+			<div class="content media-left media-middle">
+				<img class="media-img thumbnail" src="{{ movie.pic }}" alt="...">
+			</div>
+			<div class="media-body">
+				<h4 class=" media-heading brief">{{ movie.brief }}</h4>
+				{{ movie.content }}
+			</div>
+			<p>
+				<a href="#" class="favour btn btn-primary" role="button">收藏</a>
+				<a href="#" class="comment btn btn-default" role="button"> 已有{{ movie.comments.length}}条评论</a>
+				<a href="#" class="btn btn-default" role="button">已有{{ movie.views }}人浏览</a>
+				<a href="#" class="btn btn-default" role="button" value="{{ movie.tic }}">{{ movie.tic }}</a>
+				<a href="./" class="btn btn-default" role="button">BACK</a>
+
+				<input type="hidden" id="movieTic" value="{{ movie.tic }}">
+				<input type="hidden" id="movieId" value="{{ movie.id }}">
+				<input type="hidden" id="movieTitle" value="{{ movie.title }}">
+			</p>
+		</div>
+		<div class="clear"></div>
+	</div>
+</ul>
+
+<script type="text/javascript" src="public/js/favour.js"></script>
+<div class="pl">
+	<div class="messageList con-container" ><li><div class="title">还没有留言</div></li></div>
+
+	{% if userInfo._id %}
+	<ul class="con-container" >
+		<li><div class="title">评论</div></li>
+		<h3 class="textleft">一共有 <em id="messageCount">0</em> 条评论</h3>
+		<div class="form-group">
+			<textarea class="form-control sr" id="messageContent" placeholder="请输入评论"></textarea>
+			
+			<input type="hidden" id="movieId" value="{{movie.id}}">
+			<button id="messageBtn" class="submit btn btn-primary" role="button">提交</button>
+		</div>
+	</ul>
+	{% else %}
+	<ul class="con-container" >
+		<li><div class="title">您还未登录，请登录后评论！</div></li>
+	</ul>
+	{% endif %}
+
+	
+
+	<div class="page ">
+		<ul class="pager">
+
+			<li class="previous">
+				<a href=""><span aria-hidden="true">&larr;</span> 上一页</a>
+			</li>
+			<li></li>
+			<li class="next">
+				<a href="">下一页 <span aria-hidden="true">&rarr;</span></a>
+			</li>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript" src="public/js/comment.js"></script>
+
+{% endblock %}

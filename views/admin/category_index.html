@@ -1,0 +1,36 @@
+{% extends 'wrap.html' %}
+
+{% block main %}
+
+<ol class="breadcrumb">
+	<li><a href="/admin">管理首页</a></li>
+	<li><span>分类列表</span></li>
+</ol>
+
+<h3>分类列表</h3>
+
+
+<table class="table table-striped table-hover">
+	<tr>
+		<!-- <th>序号</th> -->
+		<th>操作</th>
+		<th>分类名称</th>
+		<th>ID</th>
+	</tr>
+
+	{% for category in categories %}
+	<tr>
+		<!-- <td>{{category.no}}</td> -->
+		<td>
+			<a href="/admin/category/edit?id={{category._id.toString()}}">修改</a> |
+			<a href="/admin/category/delete?id={{category._id.toString()}}">删除</a>
+		</td>
+		<td>{{category.name}}</td>
+		<td>{{category._id.toString()}}</td>
+	</tr>
+	{% endfor %}
+</table>
+
+{% include 'category_page.html' %}
+
+{% endblock %}

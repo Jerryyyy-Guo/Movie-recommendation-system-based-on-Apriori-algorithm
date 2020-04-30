@@ -1,0 +1,54 @@
+{% extends 'wrap.html' %}
+
+{% block main %}
+
+<ol class="breadcrumb">
+	<li><a href="/admin">管理首页</a></li>
+	<li><span>电影列表</span></li>
+</ol>
+
+<h3>电影列表</h3>
+
+
+<table class="table table-striped table-hover">
+	<tr>
+		<!-- <th>序号</th> -->
+		<th>操作</th>
+		<th>电影名称</th>
+		<!-- <th>电影名称ID</th> -->
+		<th>电影分类</th>
+		<th>标签</th>
+		<!-- <th>电影分类ID</th> -->
+		<th>电影图片</th>
+		<!-- <th>电影内容</th> -->
+		<!-- <th>用户</th> -->
+		<th>添加时间</th>
+		<th>点击量</th>
+	</tr>
+
+	{% for movie in movies %}
+	<tr>
+		<!-- <td></td> -->
+		<td>
+			<a href="/admin/movie/edit?id={{movie._id.toString()}}">修改</a> |
+			<a href="/admin/movie/delete?id={{movie._id.toString()}}">删除</a>
+		</td>
+		<td>{{movie.title}}</td>
+		<!-- <td>{{movie._id.toString()}}</td> -->
+		<td>{{movie.category.name}}<!--  {{movie.category}} --></td>
+		<td>{{movie.tic}}</td>
+		<!-- <td>{{movie.category.id}}</td> -->
+		<td>{{movie.pic}}</td>
+		<!-- <td>{{movie.content}}</td> -->
+		<!-- <td>{{movie.user.username}}</td> -->
+		<td>{{movie.addTime|date('Y年m月d日 H:i:s', -8*60)}}</td><!-- 要改时区 -->
+		<td>{{movie.views}}</td>
+		<!-- <td>{{movie.value}}</td> -->
+		<!-- <td>{{movie.category.id.toString()}}</td> -->
+	</tr>
+	{% endfor %}
+</table>
+
+{% include 'movie_page.html' %}
+
+{% endblock %}

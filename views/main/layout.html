@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="/public/css/index.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="/public/css/iconfont.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="/public/css/normalize.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="/public/css/bootstrap.css" type="text/css">
+<head>
+	<meta charset="UTF-8">
+	<title>电影推荐 · Mecommend</title>
+	<link rel="icon" href="public/favicon/favicon.ico">
+	<script type="text/javascript" src="public/js/jquery.js"></script>
+	<script type="text/javascript" src="public/js/index.js"></script>
+	<script type="text/javascript" src="public/js/jqthumb.js"></script>
+</head>
+<body>
+	<div class="part-1">
+		<div class="wrap-img"></div>
+		<div class="wrap">
+			{% if category == '' %}
+			<a href="/" class="focus">首页</a>
+			{% else %}
+			<a href="/">首页</a>
+			{% endif %}
+			
+			{% for cate in categories %}
+
+			{% if category == cate.id %}
+			<a href="/?category={{ cate.id }}" class="focus">{{ cate.name }}</a>
+			{% else %}
+			<a href="/?category={{ cate.id }}" >{{ cate.name }}</a>
+			{% endif %}
+
+			{% endfor %}
+		</div>
+		<div class="content col-8">
+			{% block category %}
+
+			{% if category == '' %}
+			<ul class="con-container" id="{{ cate.id }}" >
+				<li><div class="title">首页</div></li>
+			</ul>
+			{% else %}
+			{% endif %}
+
+			{% for cate in categories %}
+			
+			{% if category == cate.id %}
+			<ul class="con-container" id="{{ cate.id }}" >
+				<li><div class="title">{{ cate.name }}</div></li>
+			</ul>
+			{% else %}
+			{% endif %}
+
+			{% endfor %}
+			{% endblock %}
+			
+			{% block movie %}{% endblock %}
+		</div>
+
+		<div class="box col-4" >
+			{% if userInfo._id %}
+			<div class="success">
+				<h1><div class="userInfo">用户信息</div></h1>
+				<h3><div class="success-user">{{userInfo.username}}</div></h3>
+				{% if userInfo.isAdmin %}
+				<h2><div class="success-content">你好，管理员！</div></h2>
+				<h2><div class="enter"><a href="/admin">进入管理</a></div></h2>
+				{% else %}
+				<h3><div class="success-content">欢迎登陆！</div></h3>
+				{% endif %}
+				<h2><div class="tc"><a href="javascript:;" class="exit">EXIT</a></div></h2>
+				
+			</div>
+			{% else %}
+			<div class="dl">
+				<div class="zcdl-title"><span><h1>LOGIN</h1></span></div>
+				<div class="main-username line"><input type="text" class ="dl-username" placeholder="USERNAME"></div>
+				<div class="main-password line "><input type="password" class ="dl-password" placeholder="PASSWORK"></div>
+				<div class="dl-btn "><button class="signin-btn">LOGIN</button></div>
+				<p class="textdl">没有账号？<a href="#" class="goup">立即注册</a></p>
+				<p class="colWarning textCenter"></p>
+			</div>
+			<div class="zc" style="display: none">
+				<div class="zcdl-title"><span><h1>REGISTER</h1></span></div>
+				<div class="main-username line"><input type="text" class ="zc-username" placeholder="USERNAME"></div>
+				<div class="main-password line"><input type="password" class ="zc-password" placeholder="PASSWORK"></div>
+				<!-- <div class="main-repassword line"><span>确认密码：</span><input type="password"></div> -->
+				<div class="zc-btn "><button class="signup-btn">REGISTER</button></div>
+				<p class="textzc">已有账号？<a href="#" class="goin">立即登录</a></p>
+				<p class="colWarning textCenter"></p>
+			</div>
+			{% endif %}
+			
+			<div class="user">
+				<h1><div class="myfavour">我的收藏</div></h1>
+				{% if userInfo._id %}
+				<div class="favourList" id="favourlist"></div>
+				{% else %}
+				<h3>
+					<div class="unlogin">未登录，请先登录！</div>
+				</h3>
+				{% endif %}
+			</div>
+
+			<div class="user">
+				<h1><div class="myfavour">推荐题材</div></h1>
+				{% if userInfo._id %}
+				<div class="favourList" id="tj"></div>
+				{% else %}
+				<h3>
+					<div class="unlogin">未登录，请先登录！</div>
+				</h3>
+				{% endif %}
+			</div>
+
+			<div class="user">
+				<h1><div class="myfavour">猜您喜欢</div></h1>
+				{% if userInfo._id %}
+				<div class="favourList" id="like"></div>
+				{% else %}
+				<h3>
+					<div class="unlogin">未登录，请先登录！</div>
+				</h3>
+				{% endif %}
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+</body>
+</html> 
+
+
+
+
+
+
+
+
+
+
+
+
+

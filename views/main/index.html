@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+
+{% block movie %}
+<ul class="con-container">
+	<div class="pic">
+		{% for movie in movies %}
+		<div class="row">
+			<div class="thumbnail">
+				<a href="/view?movieid={{movie.id}}" class="thumbnail"><img src="{{ movie.pic }}" alt="..."></a>
+				<div class="caption">
+					<h3>{{ movie.title }}</h3>
+					<p class="brief">{{ movie.brief }}</p>
+					<p>
+						<a href="/view?movieid={{movie.id}}" class="btn btn-primary" role="button">收藏</a>
+						<a href="/view?movieid={{movie.id}}" class="comment btn btn-default" role="button">评论</a>
+						<a href="#" class="btn btn-default" role="button">已有{{ movie.views }}人浏览</a>
+						<a href="#" class="btn btn-default" role="button" value="{{ movie.tic }}">{{ movie.tic }}</a>
+						<a href="/view?movieid={{movie.id}}" class="btn btn-default" role="button">MORE</a>
+
+						<input type="hidden" id="movieTic" value="{{ movie.tic }}">
+						<input type="hidden" id="movieId" value="{{ movie.id }}">
+						<input type="hidden" id="movieTitle" value="{{ movie.title }}">
+					</p>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+		<div class="clear"></div>
+	</div>
+</ul>
+<script type="text/javascript" src="public/js/favour.js"></script>
+
+
+<div class="page ">
+	<ul class="pager">
+		{% if page <=1 %}
+		<li class="previous disabled">
+			<a href="javascript:;"><span aria-hidden="true">&larr;</span> 没有上一页了</a>
+		</li>
+		{% else %}
+		<li class="previous">
+			<a href="/?category={{category}}&page={{page-1}}"><span aria-hidden="true">&larr;</span> 上一页</a>
+		</li>
+		{% endif %}
+
+		{% if pages >0 %}
+		<li>
+			<strong>{{page}} / {{pages}}</strong>
+		</li>
+		{% else %}
+		<li>
+			<strong>当前电影分类下没有电影！</strong>
+		</li>
+		{% endif %}
+
+		{% if page >= pages %}
+		<li class="next disabled">
+			<a href="javascript:;">没有下一页了 <span aria-hidden="true">&rarr;</span></a>
+		</li>
+		{% else %}
+		<li class="next">
+			<a href="/?category={{category}}&page={{page+1}}">下一页 <span aria-hidden="true">&rarr;</span></a>
+		</li>
+		{% endif %}
+	</ul>
+	<ul class="pager">
+		<li>一共有 {{count}} 条电影数据，每页显示 {{limit}} 条数据，一共 {{pages}} 页，当前第 {{page}} 页</li>
+	</ul>
+</div>
+{% endblock %}
